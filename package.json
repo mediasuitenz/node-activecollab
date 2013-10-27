@@ -1,0 +1,20 @@
+{
+  "name": "node-activecollab",
+  "version": "0.0.0",
+  "description": "A node activecollab API wrapper",
+  "main": "index.js",
+  "scripts": {
+    "test": "mocha test"
+  },
+  "author": "Richard Walker",
+  "license": "BSD",
+  "dependencies": {
+    "superagent": "~0.15.6",
+    "underscore": "~1.5.2",
+    "xml2js": "~0.2.8"
+  },
+  "devDependencies": {
+    "mocha": "~1.13.0",
+    "chai": "~1.8.1"
+  }
+}
