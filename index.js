@@ -1,5 +1,6 @@
 var config = require('./config'),
     rest = require('./rest'),
+    apiUrl = require('./apiUrl'),
     projects = require('./projects');
 
 module.exports.init = function () {
@@ -23,6 +24,7 @@ module.exports.init = function () {
     }
 
     return {
+        'apiUrl': apiUrl,
         'projects': projects.projects,
         'project': projects.project
     };
