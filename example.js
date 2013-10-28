@@ -1,5 +1,9 @@
 var ac = require('./index').init();
 
+ac.apiUrl.check(function (state) {
+    console.log(state);
+});
+
 ac.projects(function (projects) {
     console.log(projects);
 });
