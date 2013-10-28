@@ -3,7 +3,7 @@ var mocha = require('mocha'),
     should = chai.should(),
     expect = chai.expect;
 
-var ac = require('../activecollab').init();
+var ac = require('../index').init();
 
 describe('projects', function(){
     describe('#projects()', function(){
