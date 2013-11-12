@@ -1,24 +1,28 @@
 var ac = require('./index').init();
 
-ac.apiUrl.check(function (state) {
-    console.log(state);
-});
+// ac.apiUrl.check(function (state) {
+//     console.log(state);
+// });
 
-ac.projects(function (projects) {
-    console.log(projects);
-});
+// ac.projects(function (projects) {
+//     console.log(projects);
+// });
 
 ac.projects.archived(function (projects) {
     console.log(projects);
 });
 
-ac.project(114, function (project) {
-    console.log(project);
+// ac.project(114, function (project) {
+//     console.log(project);
+// });
+
+ac.project(11).tasks(function (tasks) {
+    console.log(tasks);
 });
 
-ac.project(114).hourlyRates(function (rates) {
-    console.log(rates);
-});
+// ac.project(114).hourlyRates(function (rates) {
+//     console.log(rates);
+// });
 
 // ac.project(114).edit({
 //     'key': value
@@ -32,18 +36,18 @@ ac.project(114).hourlyRates(function (rates) {
 //     console.log('added!');
 // });
 
-ac.companies(function (companies) {
-    console.log(companies);
-});
-ac.companies.archived(function (companies) {
-    console.log(companies);
-});
-ac.company(256, function (company) {
-    console.log(company);
-});
-ac.company(256).user(12, function (user) {
-    console.log(user);
-});
+// ac.companies(function (companies) {
+//     console.log(companies);
+// });
+// ac.companies.archived(function (companies) {
+//     console.log(companies);
+// });
+// ac.company(256, function (company) {
+//     console.log(company);
+// });
+// ac.company(256).user(12, function (user) {
+//     console.log(user);
+// });
 // ac.company.add({
 //     "company[name]": "Example Company",
 //     "submitted": "submitted"
