@@ -17,7 +17,7 @@ var company = function (id, cb) {
             rest.fetch(process.env.API_URL, endpoint, process.env.API_KEY, cb);
             return;
         }
-        //otherwise, return a chaining ob;ect
+        //otherwise, return a chaining object
         return {
             'edit': function (data, cb) {
                 var endpoint = 'people/' + companyId + '/users/' + userId + '/edit-profile';
