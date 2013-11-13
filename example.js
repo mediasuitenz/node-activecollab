@@ -8,17 +8,53 @@ var ac = require('./index').init();
 //     console.log(projects);
 // });
 
-ac.projects.archived(function (projects) {
-    console.log(projects);
-});
+// ac.projects.archived(function (projects) {
+//     console.log(projects);
+// });
 
 // ac.project(114, function (project) {
 //     console.log(project);
 // });
 
+
+
 ac.project(11).tasks(function (tasks) {
     console.log(tasks);
 });
+
+// ac.project(11).tasks.archived(function (task) {
+//     console.log(task);
+// });
+
+// ac.project(11).task(32, function (task) {
+//     console.log(task);
+// });
+
+// ac.project(11).tasks.add({
+//     "task[name]": "test task title please ignore",
+//     "task[body]": "test task body please ignore",
+//     "task[visibility]": 1,
+//     "submitted": "submitted"
+// }, function (task) {
+//     console.log(task);
+// });
+
+// ac.project(11).tasks.add({
+//     "name": "test task title please ignore",
+//     "body": "test task body please ignore",
+//     "visibility": 1
+// }, function (task) {
+//     console.log(task);
+// });
+
+// ac.project(11).task(331).edit({
+//     "task[name]": "(edited) test task title please ignore",
+//     "task[body]": "(edited) test task body please ignore",
+//     "task[visibility]": 1,
+//     "submitted": "submitted"
+// }, function (task) {
+//     console.log(task);
+// });
 
 // ac.project(114).hourlyRates(function (rates) {
 //     console.log(rates);
@@ -30,10 +66,18 @@ ac.project(11).tasks(function (tasks) {
 //     console.log('added!');
 // });
 
+/**
+ * Creates a project
+ * Projects can be created multiple times with same values.
+ * Minimum values you must include are 'name' and 'company_id'
+ * 
+ * @param {object} data
+ */
 // ac.project.add({
-//     'key': value
-// }, function () {
-//     console.log('added!');
+//     'name': 'my test project',
+//     'company_id': 170
+// }, function (project) {
+//     console.log(project);
 // });
 
 // ac.companies(function (companies) {
@@ -42,7 +86,7 @@ ac.project(11).tasks(function (tasks) {
 // ac.companies.archived(function (companies) {
 //     console.log(companies);
 // });
-// ac.company(256, function (company) {
+// ac.company(170, function (company) {
 //     console.log(company);
 // });
 // ac.company(256).user(12, function (user) {
