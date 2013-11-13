@@ -30,8 +30,9 @@ module.exports.init = function (projectId) {
     };
 
     tasks.add = function (data, cb) {
+        data = formatBodyDataForSending('task', data);
         fetchProjectSlug(projectId, function (projectSlug) {
-            rest.create(process.env.API_URL, '/projects/' + projectSlug + '/tasks/archive/add', process.env.API_KEY, data, cb);
+            rest.create(process.env.API_URL, '/projects/' + projectSlug + '/tasks/add', process.env.API_KEY, data, cb);
         });
     };
 
@@ -47,6 +48,7 @@ module.exports.init = function (projectId) {
 
         return {
             'edit': function (data, cb) {
+                data = formatBodyDataForSending('task', data);
                 fetchProjectSlug(projectId, function (projectSlug) {
                     rest.edit(process.env.API_URL, '/projects/' + projectSlug + '/tasks/' + id + '/edit', process.env.API_KEY, data, cb);
                 });

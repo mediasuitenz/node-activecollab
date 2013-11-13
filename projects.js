@@ -1,5 +1,6 @@
 var rest = require('./rest'),
-    tasks = require('./tasks');
+    tasks = require('./tasks'),
+    formatBodyDataForSending = require('./bodyDataFormatter');
 
 /**
  * Main projects function, fetches projects from the
@@ -46,6 +47,7 @@ var hourlyRates = function (id, cb) {
  * @param  {Function} cb   - callback function
  */
 var edit = function (data, cb) {
+    data = formatBodyDataForSending('project', data);
     rest.edit(process.env.API_URL, 'projects/' + id + '/edit', process.env.API_KEY, data, cb);
 };
 
@@ -102,6 +104,7 @@ var project = function (id, cb) {
  * @param {Function} cb   - callback function
  */
 project.add = function (data, cb) {
+    data = formatBodyDataForSending('project', data);
     rest.create(process.env.API_URL, 'projects/add', process.env.API_KEY, data, cb);
 };
     
