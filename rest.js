@@ -38,6 +38,7 @@ module.exports.create = function (url, endpoint, apiKey, data, cb) {
     if (typeof cb !== 'function') {
         throw new TypeError('cb must be a function');
     }
+
     request
         .post(url + '?path_info=' + endpoint + '&auth_api_token=' + apiKey)
         .type('form')
