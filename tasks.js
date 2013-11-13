@@ -1,18 +1,10 @@
-var rest = require('./rest');
+var rest = require('./rest'),
+    formatBodyDataForSending = require('./bodyDataFormatter'),
+    fetchProjectSlug = require('./projectSlug');
 
 module.exports.init = function (projectId) {
     
     var module = {};
-
-    var fetchProjectSlug = function (projectid, cb) {
-        rest.fetch(process.env.API_URL, '/projects/' + projectId, process.env.API_KEY, function (project) {
-            console.log(project.name);
-            var slug = project.name.replace(/ /g, '-');
-            slug = slug.toLowerCase();
-            console.log(slug);
-            cb(slug);
-        });
-    };
 
     var tasks = function (cb) {
         fetchProjectSlug(projectId, function (projectSlug) {
