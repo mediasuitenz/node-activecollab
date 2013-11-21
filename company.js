@@ -1,13 +1,16 @@
 var rest = require('./rest'),
     formatBodyDataForSending = require('./bodyDataFormatter');
 
+var apiUrl,
+    apiKey;
+
 var company = function (id, cb) {
 
     var companyId = id;
 
     //if a callback is provided...
     if (typeof cb === 'function') {
-        rest.fetch(process.env.API_URL, 'people/' + companyId, process.env.API_KEY, cb);
+        rest.fetch(apiUrl, 'people/' + companyId, apiKey, cb);
         return;
     }
 
@@ -15,7 +18,7 @@ var company = function (id, cb) {
         //if a callback is provided...
         if (typeof cb === 'function') {
             var endpoint = 'people/' + companyId + '/users/' + userId;
-            rest.fetch(process.env.API_URL, endpoint, process.env.API_KEY, cb);
+            rest.fetch(apiUrl, endpoint, apiKey, cb);
             return;
         }
         //otherwise, return a chaining object
@@ -23,7 +26,7 @@ var company = function (id, cb) {
             'edit': function (data, cb) {
                 data = formatBodyDataForSending('user', data);
                 var endpoint = 'people/' + companyId + '/users/' + userId + '/edit-profile';
-                rest.edit(process.env.API_URL, endpoint, process.env.API_KEY, data, cb);
+                rest.edit(apiUrl, endpoint, apiKey, data, cb);
             }
         };
     };
@@ -31,7 +34,7 @@ var company = function (id, cb) {
     user.add = function (data, cb) {
         data = formatBodyDataForSending('user', data);
         var endpoint = 'people/' + companyId + '/add-user';
-        rest.create(process.env.API_URL, endpoint, process.env.API_KEY, data, cb);
+        rest.create(apiUrl, endpoint, apiKey, data, cb);
     };
 
     //otherwise, return a chaining ob;ect
@@ -40,7 +43,7 @@ var company = function (id, cb) {
         'edit': function (data, cb) {
             data = formatBodyDataForSending('company', data);
             var endpoint = 'people/' + companyId + '/edit';
-            rest.edit(process.env.API_URL, endpoint, process.env.API_KEY, data, cb);
+            rest.edit(apiUrl, endpoint, apiKey, data, cb);
         }
     };
 };
@@ -48,7 +51,12 @@ var company = function (id, cb) {
 company.add = function (data, cb) {
     data = formatBodyDataForSending('company', data);
     var endpoint = 'people/add-company';
-    rest.create(process.env.API_URL, endpoint, process.env.API_KEY, data, cb);
+    rest.create(apiUrl, endpoint, apiKey, data, cb);
+};
+
+company.init = function (url, key) {
+    apiUrl = url;
+    apiKey = key;
 };
 
 module.exports = company;

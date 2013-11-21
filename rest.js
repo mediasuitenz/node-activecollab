@@ -12,8 +12,9 @@ module.exports.fetch = function (url, endpoint, apiKey, cb) {
     if (typeof cb !== 'function') {
         throw new TypeError('cb must be a function');
     }
+    var urlAssembled = url + '?path_info=' + endpoint + '&auth_api_token=' + apiKey;
     request
-        .get(url + '?path_info=' + endpoint + '&auth_api_token=' + apiKey)
+        .get(urlAssembled)
         .set('Accept', 'application/json')
         .end(function (res) {
             if (res.status === 200 && res.ok === true) {

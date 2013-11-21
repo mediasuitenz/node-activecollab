@@ -2,6 +2,9 @@ var rest = require('./rest'),
     tasks = require('./tasks'),
     formatBodyDataForSending = require('./bodyDataFormatter');
 
+var apiUrl,
+    apiKey;
+
 /**
  * Main projects function, fetches projects from the
  * AC api based on given api key
@@ -9,7 +12,7 @@ var rest = require('./rest'),
  * @param  {Function} cb - callback
  */
 var projects = function (cb) {
-    rest.fetch(process.env.API_URL, 'projects', process.env.API_KEY, cb);
+    rest.fetch(apiUrl, 'projects', apiKey, cb);
 };
 
 /**
@@ -19,7 +22,7 @@ var projects = function (cb) {
  * @param  {Function} cb - callback
  */
 projects.archived = function (cb) {
-    rest.fetch(process.env.API_URL, 'projects/archive', process.env.API_KEY, cb);
+    rest.fetch(apiUrl, 'projects/archive', apiKey, cb);
 };
 
 /**
@@ -33,7 +36,7 @@ projects.archived = function (cb) {
  * @param  {Function} cb - callback function
  */
 var hourlyRates = function (id, cb) {
-    rest.fetch(process.env.API_URL, 'projects/' + id + '/hourly-rates', process.env.API_KEY, cb);
+    rest.fetch(apiUrl, 'projects/' + id + '/hourly-rates', apiKey, cb);
 };
 
 /**
@@ -48,7 +51,7 @@ var hourlyRates = function (id, cb) {
  */
 var edit = function (data, cb) {
     data = formatBodyDataForSending('project', data);
-    rest.edit(process.env.API_URL, 'projects/' + id + '/edit', process.env.API_KEY, data, cb);
+    rest.edit(apiUrl, 'projects/' + id + '/edit', apiKey, data, cb);
 };
 
 /**
@@ -72,11 +75,11 @@ var project = function (id, cb) {
 
     //if a callback is provided...
     if (typeof cb === 'function') {
-        rest.fetch(process.env.API_URL, 'projects/' + id, process.env.API_KEY, cb);
+        rest.fetch(apiUrl, 'projects/' + id, apiKey, cb);
         return;
     }
 
-    var taskModule = tasks.init(id);
+    var taskModule = tasks.init(id, apiUrl, apiKey);
 
     var exports = {};
 
@@ -105,10 +108,13 @@ var project = function (id, cb) {
  */
 project.add = function (data, cb) {
     data = formatBodyDataForSending('project', data);
-    rest.create(process.env.API_URL, 'projects/add', process.env.API_KEY, data, cb);
+    rest.create(apiUrl, 'projects/add', apiKey, data, cb);
 };
     
 module.exports.project = project;
 module.exports.projects = projects
-
+module.exports.init = function (url, key) {
+    apiUrl = url;
+    apiKey = key;
+};
 

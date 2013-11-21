@@ -2,29 +2,36 @@ var rest = require('./rest'),
     formatBodyDataForSending = require('./bodyDataFormatter'),
     fetchProjectSlug = require('./projectSlug');
 
-module.exports.init = function (projectId) {
+var apiUrl,
+    apiKey;
+
+module.exports.init = function (projectId, url, key) {
     
+    apiUrl = url;
+    apiKey = key;
+
+    fetchProjectSlug.init(apiUrl, apiKey);
+
     var module = {};
 
     var tasks = function (cb) {
         fetchProjectSlug(projectId, function (projectSlug) {
-            var endpoint = '/projects/' + projectSlug + '/tasks';
-            console.log(endpoint);
-            rest.fetch(process.env.API_URL, endpoint, process.env.API_KEY, cb);
+            var endpoint = 'projects/' + projectSlug + '/tasks';
+            rest.fetch(apiUrl, endpoint, apiKey, cb);
         });
         
     };
 
     tasks.archived = function (cb) {
         fetchProjectSlug(projectId, function (projectSlug) {
-            rest.fetch(process.env.API_URL, '/projects/' + projectSlug + '/tasks/archive', process.env.API_KEY, cb);
+            rest.fetch(apiUrl, '/projects/' + projectSlug + '/tasks/archive', apiKey, cb);
         });
     };
 
     tasks.add = function (data, cb) {
         data = formatBodyDataForSending('task', data);
         fetchProjectSlug(projectId, function (projectSlug) {
-            rest.create(process.env.API_URL, '/projects/' + projectSlug + '/tasks/add', process.env.API_KEY, data, cb);
+            rest.create(apiUrl, '/projects/' + projectSlug + '/tasks/add', apiKey, data, cb);
         });
     };
 
@@ -33,7 +40,7 @@ module.exports.init = function (projectId) {
         //if a callback is provided...
         if (typeof cb === 'function') {
             fetchProjectSlug(projectId, function (projectSlug) {
-                rest.fetch(process.env.API_URL, '/projects/' + projectSlug + '/tasks/' + id, process.env.API_KEY, cb);
+                rest.fetch(apiUrl, '/projects/' + projectSlug + '/tasks/' + id, apiKey, cb);
                 return;
             });
         }
@@ -42,7 +49,7 @@ module.exports.init = function (projectId) {
             'edit': function (data, cb) {
                 data = formatBodyDataForSending('task', data);
                 fetchProjectSlug(projectId, function (projectSlug) {
-                    rest.edit(process.env.API_URL, '/projects/' + projectSlug + '/tasks/' + id + '/edit', process.env.API_KEY, data, cb);
+                    rest.edit(apiUrl, '/projects/' + projectSlug + '/tasks/' + id + '/edit', apiKey, data, cb);
                 });
             }
         };

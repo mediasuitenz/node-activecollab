@@ -1,5 +1,8 @@
 var rest = require('./rest');
 
+var apiUrl,
+    apiKey;
+
 /**
  * Fetches a project by project id, then fetches its project slug for use
  * when working with tasks.
@@ -8,12 +11,17 @@ var rest = require('./rest');
  * @param  {Function} cb     - function to be called once project slug has
  *                             been fetched and calculated
  */
-module.exports = function (projectid, cb) {
-    rest.fetch(process.env.API_URL, '/projects/' + projectid, process.env.API_KEY, function (project) {
-        console.log(project.name);
+var projectSlug = function (projectid, cb) {
+    rest.fetch(apiUrl, 'projects/' + projectid, apiKey, function (project) {
         var slug = project.name.replace(/ /g, '-');
         slug = slug.toLowerCase();
-        console.log(slug);
         cb(slug);
     });
 };
+
+projectSlug.init = function (url, key) {
+    apiUrl = url;
+    apiKey = key;
+};
+
+module.exports = projectSlug;

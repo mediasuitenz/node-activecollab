@@ -1,6 +1,9 @@
 var request = require('superagent'),
     parseString = require('xml2js').parseString;
 
+var apiUrl,
+    apiKey;
+
 /**
  * Check that the api url is correct.
  * 
@@ -10,10 +13,11 @@ var request = require('superagent'),
  * @throw {TypeError}    - if cb function is not a function
  */
 module.exports.check = function (cb) {
+
     if (typeof cb !== 'function') {
         throw new TypeError('cb must be a function');
     }
-    request.get(process.env.API_URL + '?check_if_alive=1').end(function (res) {
+    request.get(apiUrl + '?check_if_alive=1').end(function (res) {
         if (res.status === 200 && res.ok === true) {
 
             parseString(res.text, function (err, result) {
@@ -29,4 +33,9 @@ module.exports.check = function (cb) {
             cb(false);
         }
     });
+};
+
+module.exports.init = function (url, key) {
+    apiUrl = url;
+    apiKey = key;
 };
