@@ -7,7 +7,7 @@ A node activecollab API wrapper
 
 Require and initialize
 ```
-var ac = require('./path_to_index').init();
+var ac = require('./path_to_index').init(apiUrl, apiKey);
 ```
 
 Fetch a list of projects
